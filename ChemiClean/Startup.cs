@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChemiClean.SQLServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,6 +39,9 @@ namespace ChemiClean
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            ServerConfig.Up();
+            var applicationLifetime = app.ApplicationServices.GetRequiredService<IApplicationLifetime>();
+            applicationLifetime.ApplicationStopping.Register(ServerConfig.Down);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
