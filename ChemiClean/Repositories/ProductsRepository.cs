@@ -34,9 +34,19 @@ namespace ChemiClean.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Product Get(string id)
+        public Product Get(string name)
         {
-            throw new System.NotImplementedException();
+            Product product = null;
+            var query = $"SELECT * FROM tblProduct WHERE ProductName = '{name}'";
+            var command = new SqlCommand(query, SQLServer.ServerConfig.Connection);
+            var dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                product = new Product(dataReader["ProductName"].ToString(), dataReader["SupplierName"].ToString(),
+                        dataReader["Url"].ToString());
+            }
+            dataReader.Close();
+            return product;
         }
 
         public IEnumerable<Product> GetAll()

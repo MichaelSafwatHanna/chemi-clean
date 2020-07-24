@@ -1,0 +1,19 @@
+﻿@model Product
+@{
+    ViewBag.Title = "ProductByName";
+}
+
+<article class="row justify-content-center mt-5">
+    <div class="col-lg-10">
+        <h1>@Model.Name</h1>
+        <h3>@Model.Supplier</h3>
+        @{
+            if (@Model.IsUpdated)
+            {
+                <span class="badge badge-pill badge-warning">Updated Recently</span>
+            }
+        }
+        <hr />
+        <embed src="https://drive.google.com/viewerng/viewer?embedded=true&url=@Model.Url" width="500" height="375">
+    </div>
+</article>

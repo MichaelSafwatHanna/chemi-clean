@@ -6,7 +6,7 @@
 <div class="card-deck">
     @foreach (var product in Model)
     {
-        <a href="@product.Url">
+        <a href="@Url.Action(product.Name, "Home")">
             <div class="card border-primary mb-4" style="min-width: 300px; max-width: 300px;">
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
