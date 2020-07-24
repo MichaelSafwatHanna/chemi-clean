@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ChemiClean.Models;
+using ChemiClean.Repositories;
 
 namespace ChemiClean.Controllers
 {
@@ -12,7 +13,8 @@ namespace ChemiClean.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            
+            return View(ProductsRepository.GetInstance().GetAll());
         }
 
         public IActionResult About()
