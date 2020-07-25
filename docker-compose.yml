@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+  storage:
+    container_name: storage
+    image: storage
+    build:
+      context: ./Storage
+    volumes:
+      - ./Storage/repos:/var/www/repos
+    ports:
+      - "8080:8080"       #exposed port for local testing
+    
