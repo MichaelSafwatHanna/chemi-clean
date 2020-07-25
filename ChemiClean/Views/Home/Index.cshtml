@@ -6,13 +6,23 @@
 <div class="card-deck">
     @foreach (var product in Model)
     {
-        <a href="@Url.Action(product.Name, "Home")">
+        <a href="@Url.Action(product.Name, "Home")" class="text-decoration-none">
             <div class="card border-primary mb-4" style="min-width: 300px; max-width: 300px;">
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@product.Supplier</h6>
+                    @{
+                        if (product.LastBackup == "")
+                        {
+                            <span class="badge badge-pill badge-danger">No Local Copy</span>
+                        }
+                        else
+                        {
+                            <p class="card-text">Last Backup: @product.LastBackup</p>
+                        }
+                    }
                 </div>
             </div>
         </a>
     }
-    </div>
+</div>
