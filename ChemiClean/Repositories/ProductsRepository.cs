@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using ChemiClean.Interfaces;
 using ChemiClean.Models;
 
@@ -43,7 +45,7 @@ namespace ChemiClean.Repositories
             while (dataReader.Read())
             {
                 product = new Product(dataReader["ProductName"].ToString(), dataReader["SupplierName"].ToString(),
-                        dataReader["Url"].ToString());
+                    dataReader["Url"].ToString(), dataReader["LastBackup"].ToString());
             }
             dataReader.Close();
             return product;
@@ -59,15 +61,17 @@ namespace ChemiClean.Repositories
             {
                 products.Add(
                     new Product(dataReader["ProductName"].ToString(), dataReader["SupplierName"].ToString(),
-                        dataReader["Url"].ToString()));
+                        dataReader["Url"].ToString(), dataReader["LastBackup"].ToString()));
             }
             dataReader.Close();
             return products;
         }
 
-        public void Update(string id)
+        public void Update(string name)
         {
-            throw new System.NotImplementedException();
+            var query = $"UPDATE tblProduct SET LastBackup = GetDate() WHERE ProductName  = '{name}'";
+            var command = new SqlCommand(query, SQLServer.ServerConfig.Connection);
+            command.ExecuteNonQuery();
         }
     }
 }
